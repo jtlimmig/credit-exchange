@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+    <display-name>creditexchange-rest</display-name>
+ 	<session-config>
+        <session-timeout>30</session-timeout>
+    </session-config>
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+    <listener>
+        <listener-class>org.jboss.resteasy.plugins.server.servlet.ResteasyBootstrap</listener-class>
+    </listener>
+    <servlet>
+        <servlet-name>Resteasy</servlet-name>
+        <servlet-class>org.jboss.resteasy.plugins.server.servlet.HttpServletDispatcher</servlet-class>
+        <init-param>
+	        <param-name>javax.ws.rs.Application</param-name>
+	        <param-value>com.projectgoth.creditexchange.dataservice.restapi.RestApiRegistry</param-value>
+	        <param-value>com.projectgoth.creditexchange.replicationservice.restapi.RestApiRegistry</param-value>
+        </init-param>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Resteasy</servlet-name>
+        <url-pattern>/*</url-pattern>
+    </servlet-mapping>
+    <context-param>
+         <param-name>resteasy.scan</param-name>
+        <param-value>false</param-value>    
+    </context-param>
+    <context-param>
+        <param-name>resteasy.servlet.mapping.prefix</param-name>
+        <param-value>/</param-value>
+    </context-param>
+    <!-- enable the Asynchronous Job Service -->
+    <context-param>
+        <param-name>resteasy.async.job.service.enabled</param-name>
+        <param-value>true</param-value>
+    </context-param>
+    <!-- How many jobs results can be held in memory at once? -->
+    <context-param>
+        <param-name>resteasy.async.job.service.max.job.results</param-name>
+        <param-value>100</param-value>
+    </context-param>
+    <!-- Maximum wait time on a job when a client is querying for it -->
+    <context-param>
+        <param-name>resteasy.async.job.service.max.wait</param-name>
+        <param-value>300000</param-value>
+    </context-param>
+    <!-- Thread pool size of background threads that run the job -->
+    <context-param>
+        <param-name>resteasy.async.job.service.thread.pool.size</param-name>
+        <param-value>100</param-value>
+    </context-param>
+    <!-- Set the base path for the Job uris -->
+    <context-param>
+        <param-name>resteasy.async.job.service.base.path</param-name>
+        <param-value>/asynch/jobs</param-value>
+    </context-param>
+</web-app>
