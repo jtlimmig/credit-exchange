@@ -6,10 +6,10 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<modules>
-		<module>creditexchange-common</module>
-		<module>creditexchange-web</module>
-		<module>creditexchange-dataservice</module>
-		<module>creditexchange-replicationservice</module>
+		<module>common</module>
+		<module>web</module>
+		<module>dataservice</module>
+		<module>replicationservice</module>
 	</modules>
 
 	<repositories>
