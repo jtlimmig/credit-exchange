@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Configuration status="WARN" monitorInterval="60">
+	<Appenders>
+		<Console name="Console" target="SYSTEM_OUT">
+			<PatternLayout>
+				<Pattern>%highlight{%d{HH:mm:ss} %level{length=1}         %-28c{*.*.~}  %msg}{FATAL=red, ERROR=red, WARN=yellow, INFO=white, DEBUG=white, TRACE=white}%n</Pattern>
+			</PatternLayout>
+		</Console>
+		<Console name="AkkaConsole" target="SYSTEM_OUT">
+			<PatternLayout>
+				<Pattern>%highlight{%d{HH:mm:ss} %level{length=1} [akka]  %-28c{1}  %msg}{FATAL=red, ERROR=red, WARN=yellow, INFO=white, DEBUG=white, TRACE=white}%n</Pattern>
+			</PatternLayout>
+		</Console>
+		<Console name="MigConsole" target="SYSTEM_OUT">
+			<PatternLayout>
+				<Pattern>%highlight{%d{HH:mm:ss} %level{length=1} [migme] %-28c{1}  %msg}{FATAL=red, ERROR=red, WARN=yellow, INFO=white, DEBUG=white, TRACE=white}%n</Pattern>
+			</PatternLayout>
+		</Console>
+		<Console name="StatsConsole" target="SYSTEM_OUT">
+			<PatternLayout>
+				<Pattern>%highlight{%d{HH:mm:ss} %level{length=1} [stats] %-28c{1}  %msg}{FATAL=red, ERROR=red, WARN=yellow, INFO=white, DEBUG=white, TRACE=white}%n</Pattern>
+			</PatternLayout>
+		</Console>
+		<RollingRandomAccessFile name="FileAppender"
+			fileName="logs/cxb.log"
+			filePattern="logs/cxb.%d{yyyy-MM-dd}_%i.log">
+			<PatternLayout>
+				<Pattern>%d{HHmmss} %level{length=1} %-40c{*.*.~}  %msg%n</Pattern>
+			</PatternLayout>
+			<Policies>
+				<OnStartupTriggeringPolicy />
+				<TimeBasedTriggeringPolicy />
+				<SizeBasedTriggeringPolicy size="10 MB" />
+			</Policies>
+			<DefaultRolloverStrategy max="10"/>
+		</RollingRandomAccessFile>
+		<Socket name="SocketAppender" host="10.8.0.1" port="7000">
+			<SerializedLayout />
+		</Socket>
+		<Async name="AsyncFileAppender">
+			<AppenderRef ref="FileAppender"/>
+		</Async>
+		<Async name="AsyncSocketAppender">
+			<AppenderRef ref="SocketAppender"/>
+		</Async>
+	</Appenders>
+
+	<Loggers>
+		<Root level="DEBUG">
+			<AppenderRef ref="Console" level="INFO" />
+			<AppenderRef ref="AsyncFileAppender" level="DEBUG" />
+			<AppenderRef ref="AsyncSocketAppender" level="INFO" />
+		</Root>
+		<Logger name="akka" level="DEBUG" additivity="false">
+			<AppenderRef ref="AkkaConsole" level="INFO" />
+			<AppenderRef ref="AsyncFileAppender" level="DEBUG" />
+			<AppenderRef ref="AsyncSocketAppender" level="INFO" />
+		</Logger>
+		<Logger name="me.mig" level="DEBUG" additivity="false">
+			<AppenderRef ref="MigConsole" level="DEBUG" />
+			<AppenderRef ref="AsyncFileAppender" level="DEBUG" />
+			<AppenderRef ref="AsyncSocketAppender" level="INFO" />
+		</Logger>
+
+		<!-- only log this to console -->
+		<Logger name="kamon.logreporter" level="DEBUG" additivity="false">
+			<AppenderRef ref="StatsConsole" level="DEBUG" />
+		</Logger>
+
+
+	</Loggers>
+</Configuration>
