@@ -72,5 +72,31 @@ lazy val ace = Project(
     assemblyJarName <<= (name, scalaVersion, version) map ((x,y,z) => "%s_%s-%s-assembly.jar" format(x,y,z))
   )
 
+lazy val common = Project(
+  id="common",
+  base=file("common")
+  ).settings(
+    commonSettings: _*
+  ).settings(
+    releaseSettings: _*
+  )
+
+lazy val replicationservice = Project(
+  id="replicationservice",
+  base=file("replicationservice")
+  ).settings(
+    commonSettings: _*
+  ).settings(
+    releaseSettings: _*
+  )
+
+lazy val dataservice = Project(
+  id="dataservice",
+  base=file("dataservice")
+  ).settings(
+    commonSettings: _*
+  ).settings(
+    releaseSettings: _*
+  )
 
 fork in run := true
