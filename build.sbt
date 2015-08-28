@@ -74,7 +74,7 @@ lazy val ace = Project(
   ).settings(
     addArtifact(Artifact("cxb", "assembly"), sbtassembly.AssemblyKeys.assembly),
     assemblyJarName <<= (name, scalaVersion, version) map ((x,y,z) => "%s_%s-%s-assembly.jar" format(x,y,z))
-  )
+  ).aggregate(common, replicationservice, dataservice)
 
 lazy val common = Project(
   id="common",
