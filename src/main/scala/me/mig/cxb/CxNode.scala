@@ -5,7 +5,9 @@ import com.typesafe.config.Config
 import me.mig.cxb.actor.ActorNames
 
 class CxNode (val actorSystem: ActorSystem) extends Extension {
-  ActorNames.context = actorSystem
+  def Init() = {
+    ActorNames.context = actorSystem
+  }
 }
 
 object CxNode extends ExtensionId[CxNode] {

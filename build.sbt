@@ -48,7 +48,11 @@ libraryDependencies ++= Seq(
   "org.slf4j"                 %  "slf4j-api"        % slf4jVersion,
   "org.apache.logging.log4j"  %  "log4j-core"       % log4j2Version   % Runtime,
   "org.apache.logging.log4j"  %  "log4j-api"        % log4j2Version   % Runtime,
-  "org.apache.logging.log4j"  %  "log4j-slf4j-impl" % log4j2Version   % Runtime
+  "org.apache.logging.log4j"  %  "log4j-slf4j-impl" % log4j2Version   % Runtime,
+  "io.spray"                  %% "spray-routing"    % sprayVersion,
+  "io.spray"                  %% "spray-can"        % sprayVersion,
+  "io.spray"                  %% "spray-httpx"      % sprayVersion,
+  "me.mig.fission"            %% "dao"              % fissionVersion
 )
 
 // scope: test
