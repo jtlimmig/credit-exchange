@@ -1,7 +1,3 @@
-
-
-
-
 CREATE TABLE `partner` (
   `ID` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `Name` varchar(128) DEFAULT NULL,
