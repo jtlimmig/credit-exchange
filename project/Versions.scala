@@ -4,6 +4,7 @@ object Versions {
 
   val akkaVersion = sys.props.get("cxb.akkaVersion").getOrElse("2.3.12")
   val sprayVersion = sys.props.get("cxb.sprayVersion").getOrElse("1.3.3")
+  val sprayJsonVersion = sys.props.get("cxb.sprayVersion").getOrElse("1.3.2")
 
   val slf4jVersion = sys.props.get("cxb.slf4jVersion").getOrElse("1.7.12")
   val log4j2Version = sys.props.get("cxb.log4j2Version").getOrElse("2.3")

@@ -52,6 +52,7 @@ libraryDependencies ++= Seq(
   "io.spray"                  %% "spray-routing"    % sprayVersion,
   "io.spray"                  %% "spray-can"        % sprayVersion,
   "io.spray"                  %% "spray-httpx"      % sprayVersion,
+  "io.spray"                  %% "spray-json"       % sprayJsonVersion,
   "me.mig.fission"            %% "dao"              % fissionVersion
 )
 
