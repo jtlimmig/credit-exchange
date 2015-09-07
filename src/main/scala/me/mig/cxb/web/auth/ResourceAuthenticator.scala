@@ -7,11 +7,11 @@ import spray.routing.AuthenticationFailedRejection.{CredentialsMissing, Credenti
 import spray.routing.authentication._
 import spray.routing.{AuthenticationFailedRejection, RequestContext}
 
-import scala.concurrent.Future
+import scala.concurrent.{ExecutionContext, Future}
 
 trait ResourceAuthenticator {
 
-  import scala.concurrent.ExecutionContext.Implicits.global
+  implicit val ec:ExecutionContext
 
   private val REGEXP_AUTHORIZATION = """^\s*(Bearer|Oauth|OAuth2)\s+(\S+)""".r
 
