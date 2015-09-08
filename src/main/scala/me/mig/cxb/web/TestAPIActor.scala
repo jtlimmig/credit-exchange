@@ -5,6 +5,8 @@ import akka.io.IO
 import me.mig.cxb.actor.{ActorNames, SubSystem}
 import spray.can.Http
 
+import scala.concurrent.ExecutionContext
+
 object TestAPI extends SubSystem {
 
   override def start() = {
@@ -18,6 +20,9 @@ object TestAPI extends SubSystem {
 }
 
 class TestAPIActor extends Actor with TestCxService {
+
+  override implicit val ec: ExecutionContext = ExecutionContext.global
+
   def receive: Receive = runRoute(routes)
   def actorRefFactory = context
 }

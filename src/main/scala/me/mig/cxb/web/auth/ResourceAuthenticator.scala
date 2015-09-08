@@ -3,37 +3,32 @@ package me.mig.cxb.web.auth
 import me.mig.fission.dao.OAuth2DAO
 import me.mig.fission.dao.models.auth.PersistedAccessToken
 import spray.http.HttpHeaders.Authorization
-import spray.routing.{RequestContext, AuthenticationFailedRejection}
 import spray.routing.AuthenticationFailedRejection.{CredentialsMissing, CredentialsRejected}
-import spray.routing.authentication._
+import spray.routing.authentication.ContextAuthenticator
+import spray.routing.{AuthenticationFailedRejection, RequestContext}
 
-import scala.concurrent.Future
+import scala.concurrent.{ExecutionContext, Future}
 
 trait ResourceAuthenticator {
 
-  import scala.concurrent.ExecutionContext.Implicits.global
+  implicit val ec:ExecutionContext
 
-  //private val REGEXP_AUTHORIZATION = """^\s*(OAuth|OAuth2|Bearer)\s+(\S*)""".r
   private val REGEXP_AUTHORIZATION = """^\s*(Bearer|Oauth|OAuth2)\s+(\S+)""".r
 
-  def findAuthInfoByAccessToken(token: String): Option[PersistedAccessToken] = {
-    val pt = OAuth2DAO().getTokenSync(token)
-    if (pt != null && pt.isExpired) Some(pt) else None
-  }
+  def findAuthInfoByAccessToken(token: String): Future[PersistedAccessToken] = Future( OAuth2DAO().getTokenSync(token) )
 
   def tokenAuthenticator: ContextAuthenticator[PersistedAccessToken] = { ctx =>
     fetchAccessToken(ctx) match {
       case Some(token) =>
-        findAuthInfoByAccessToken(token) match {
-          case Some(info) => Future(Right(info))
-          case None => Future(Left(AuthenticationFailedRejection(CredentialsRejected, List())))
+        findAuthInfoByAccessToken(token) map {
+          case info:PersistedAccessToken if !info.isExpired => Right(info)
+          case _ => Left(AuthenticationFailedRejection(CredentialsRejected, List()))
         }
-      case None => Future(Left(AuthenticationFailedRejection(CredentialsMissing, List())))
+      case _ => Future(Left(AuthenticationFailedRejection(CredentialsMissing, List())))
     }
   }
 
   def allowedScopes(info: PersistedAccessToken, scopes: String*): Boolean = {
-
     info.scopes.intersect(scopes).nonEmpty
   }
 
