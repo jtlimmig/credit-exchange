@@ -1,7 +1,5 @@
 package me.mig.cxb.web.model
 
-import java.util.Date
-
 import me.mig.fission.model.UserObject.UID
 
 case class Transaction( id:Long,
@@ -17,8 +15,8 @@ case class Transaction( id:Long,
                         amount_deducted:Int,
                         currency_code:String,
                         transaction_status:String,
-                        created_at:Date,
-                        updated_at:Date,
+                        created_at:String,
+                        updated_at:String,
                         transaction_type:String,
                         partner_reference:String
                         ) {

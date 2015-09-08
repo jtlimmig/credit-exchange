@@ -5,8 +5,6 @@ import spray.http.MediaTypes._
 import spray.json.DefaultJsonProtocol
 import spray.routing.HttpService
 
-import scala.concurrent.ExecutionContext.Implicits.global
-
 case class TestModel(name:String)
 
 object TestJsonFormat extends DefaultJsonProtocol {
