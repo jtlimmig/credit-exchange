@@ -4,7 +4,7 @@ import me.mig.fission.dao.OAuth2DAO
 import me.mig.fission.dao.models.auth.PersistedAccessToken
 import spray.http.HttpHeaders.Authorization
 import spray.routing.AuthenticationFailedRejection.{CredentialsMissing, CredentialsRejected}
-import spray.routing.authentication._
+import spray.routing.authentication.ContextAuthenticator
 import spray.routing.{AuthenticationFailedRejection, RequestContext}
 
 import scala.concurrent.{ExecutionContext, Future}

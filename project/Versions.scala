@@ -2,7 +2,7 @@ object Versions {
   val scala = sys.props.get("cxb.scalaVersion").getOrElse("2.11.7")
   val scalatestVersion = sys.props.get("cxb.scalatestVersion").getOrElse("2.2.5")
 
-  val akkaVersion = sys.props.get("cxb.akkaVersion").getOrElse("2.3.12")
+  val akkaVersion = sys.props.get("cxb.akkaVersion").getOrElse("2.3.13")
   val sprayVersion = sys.props.get("cxb.sprayVersion").getOrElse("1.3.3")
   val sprayJsonVersion = sys.props.get("cxb.sprayVersion").getOrElse("1.3.2")
 

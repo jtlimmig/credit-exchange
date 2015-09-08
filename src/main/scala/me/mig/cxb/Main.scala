@@ -1,9 +1,8 @@
 package me.mig.cxb
 
-import com.typesafe.config.ConfigFactory
 import me.mig.cxb.actor.ActorNames
 import me.mig.cxb.web.TestAPI
-import me.mig.fission.DAO
+import me.mig.fission.{Configuration, DAO}
 import org.slf4j.LoggerFactory
 
 object Main extends App {
@@ -16,14 +15,13 @@ object Startup {
 
   def Init() = {
 
-    val config = ConfigFactory.load()
-
+    Configuration.init()
 
     DAO.init()
 
 
 
-    val node = CxNode(ActorNames.localSystem, config).asInstanceOf[CxNode]
+    val node = CxNode(ActorNames.localSystem, Configuration.get).asInstanceOf[CxNode]
     node.Init()
 
 
